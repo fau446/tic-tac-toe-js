@@ -15,7 +15,11 @@ const displayController = (function () {
 
   function _render() {
     $spaces.forEach((element, index) => {
-      element.innerHTML = gameBoard.board[index]
+      if (gameBoard.board[index] === 'X' || gameBoard.board[index] === 'O') {
+        element.innerHTML = gameBoard.board[index]
+      } else {
+        element.innerHTML = '_'
+      }
     })
   }
 
