@@ -3,8 +3,15 @@ const gameBoard = (function() {
 
   //this module should check if the player selected space is valid
   //the function that checks if a space is valid should be private
+
+  function validMoveCheck(space) {
+    if (space === '_') return true
+    return false
+  }
+
   return {
-    board
+    board,
+    validMoveCheck
   }
 })()
 
@@ -39,13 +46,9 @@ const game = (function() {
   let $spaces = document.querySelectorAll('.space')
 
   //bind events
-  $spaces.forEach((element, index) => {
+  $spaces.forEach((element) => {
     element.addEventListener('click', function() {
-      if (activePlayer === playerOne) {
-        activePlayer = playerTwo
-      } else {
-        activePlayer = playerOne
-      }
+      activePlayer === playerOne ? activePlayer = playerTwo : activePlayer = playerOne
       activePlayer.placeSymbol()
     })
   })
