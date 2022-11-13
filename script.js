@@ -33,21 +33,26 @@ const game = (function() {
   let playerOne = players('X')
   let playerTwo = players('O')
   let gameFinished = false
-  let activePlayer = playerOne
-  activePlayer.placeSymbol()
+  let activePlayer
+
+  //cache DOM
+  let $spaces = document.querySelectorAll('.space')
+
+  //bind events
+  $spaces.forEach((element, index) => {
+    element.addEventListener('click', function() {
+      if (activePlayer === playerOne) {
+        activePlayer = playerTwo
+      } else {
+        activePlayer = playerOne
+      }
+      activePlayer.placeSymbol()
+    })
+  })
 
   function _game() {
-    /*while (gameFinished === false) {
-      playerOne.placeSymbol()
-    }*/
-    //while loop 
-      //activePlayer = playerOne
-      //playerOne.placeSymbol()
-      //checks if it's a win through gameBoard module
-      //activePlayer = playerTwo
-      //playerTwo.placeSymbol()
-      //checks if it's a win
-    //end while loop
+    activePlayer = playerOne
+    activePlayer.placeSymbol()
   }
 
   _game()
