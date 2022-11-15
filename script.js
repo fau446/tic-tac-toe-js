@@ -1,10 +1,16 @@
 const gameBoard = (function() {
   let board = ['_', '_', '_', '_', '_', '_', '_', '_', '_',]
 
-  //this module should check if the player selected space is valid
-  //the function that checks if a space is valid should be private
+  
+
+  function validMoveCheck(space) {
+    if (space.innerHTML === '_') return true
+    return false
+  }
+
   return {
-    board
+    board,
+    validMoveCheck
   }
 })()
 
@@ -15,13 +21,9 @@ const players = (symbol) => {
   //bind events
 
 
-  function placeSymbol() {
-    $spaces.forEach((element, index) => {
-      element.addEventListener('click', function() {
-        gameBoard.board[index] = symbol
-        displayController.render()
-      })
-    })
+  function placeSymbol(index) {
+    gameBoard.board[index] = symbol
+    displayController.render()
   }
 
   return {
@@ -32,26 +34,28 @@ const players = (symbol) => {
 const game = (function() {
   let playerOne = players('X')
   let playerTwo = players('O')
-  let gameFinished = false
+  //let gameFinished = false
   let activePlayer
 
   //cache DOM
   let $spaces = document.querySelectorAll('.space')
 
   //bind events
-  $spaces.forEach((element) => {
+  $spaces.forEach((element, index) => {
     element.addEventListener('click', function() {
-      activePlayer === playerOne ? activePlayer = playerTwo : activePlayer = playerOne
-      activePlayer.placeSymbol()
+      console.log(gameBoard.validMoveCheck(element))
+      if (gameBoard.validMoveCheck(element)) {
+        _game(index)
+      }
     })
   })
 
-  function _game() {
-    activePlayer = playerOne
-    activePlayer.placeSymbol()
+  function _game(index) {
+    activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
+    activePlayer.placeSymbol(index)
   }
 
-  _game()
+
 })()
 
 const displayController = (function() {
@@ -59,12 +63,6 @@ const displayController = (function() {
   let $spaces = document.querySelectorAll('.space')
 
   //bind events
-  /*$spaces.forEach((element, index) => {
-    element.addEventListener('click', function() {
-      gameBoard.board[index] = 'X'
-      _render()
-    })
-  })*/
 
   function render() {
     $spaces.forEach((element, index) => {
