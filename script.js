@@ -81,6 +81,9 @@ const game = (function() {
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
     activePlayer.placeSymbol(index)
     let gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
+    if (gameStatus === 'win') {
+      activePlayer === playerOne ? console.log("Player One Wins!") : console.log("Player Two Wins!")
+    }
   }
 
 
