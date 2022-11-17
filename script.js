@@ -90,14 +90,14 @@ const game = (function() {
   
   function _game(index) {
     if (gameStatus === 'win' || gameStatus === 'tie') return
-    
+
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
     activePlayer.placeSymbol(index)
     gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
     if (gameStatus === 'win') {
-      activePlayer === playerOne ? console.log("Player One Wins!") : console.log("Player Two Wins!")
+      displayController.displayResults(gameStatus, activePlayer)
     } else if (gameStatus === 'tie') {
-      console.log("Tie!")
+      displayController.displayResults(gameStatus)
     }
   }
 
@@ -107,6 +107,7 @@ const game = (function() {
 const displayController = (function() {
   //cache DOM
   let $spaces = document.querySelectorAll('.space')
+  let $display = document.querySelector('.display')
 
   //bind events
 
@@ -116,9 +117,23 @@ const displayController = (function() {
     })
   }
 
+  function displayResults(result, activePlayer = undefined) {
+    if (result === 'tie') {
+      $display.innerHTML = "It's a tie!"
+      return
+    } 
+
+    if (activePlayer.symbol === 'X') {
+      $display.innerHTML = "Player One Wins!"
+    } else {
+      $display.innerHTML = "Player Two Wins!"
+    }
+  }
+
   render()
 
   return {
-    render
+    render,
+    displayResults
   }
 })()
