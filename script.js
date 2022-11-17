@@ -1,5 +1,5 @@
 const gameBoard = (function() {
-  let board = ['_', '_', '_', '_', '_', '_', '_', '_', '_'] //['0', '1', '2', '3', '4', '5', '6', '7', '8']
+  let board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
 
   function _arrayEquals(a, b) {
     return a.every((val, index) => val === b[index])
@@ -37,15 +37,13 @@ const gameBoard = (function() {
   } 
 
   function gameStatusCheck(symbol) {
-    //Check if it's a win first
     if (_winCheck(symbol)) {
       return "win"
     }
-    //If not a win and board is full, it is a tie
+
     if (_tieCheck()) {
       return "tie"
     }
-    //otherwise, the game goes on. return false
   }
 
   return {
@@ -56,10 +54,7 @@ const gameBoard = (function() {
 })()
 
 const players = (symbol) => {
-  //cache DOM
-
-  //bind events
-
+  let name
 
   function placeSymbol(index) {
     gameBoard.board[index] = symbol
@@ -68,6 +63,7 @@ const players = (symbol) => {
 
   return {
     symbol,
+    name,
     placeSymbol
   }
 }
@@ -76,7 +72,7 @@ const game = (function() {
   let playerOne = players('X')
   let playerTwo = players('O')
   let gameStatus
-  let activePlayer
+  let activePlayer = playerOne
 
   //cache DOM
   let $spaces = document.querySelectorAll('.space')
@@ -91,7 +87,6 @@ const game = (function() {
   function _game(index) {
     if (gameStatus === 'win' || gameStatus === 'tie') return
 
-    activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
     activePlayer.placeSymbol(index)
     gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
     if (gameStatus === 'win') {
@@ -99,6 +94,7 @@ const game = (function() {
     } else if (gameStatus === 'tie') {
       displayController.displayResults(gameStatus)
     }
+    activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
   }
 
 
@@ -108,8 +104,24 @@ const displayController = (function() {
   //cache DOM
   let $spaces = document.querySelectorAll('.space')
   let $display = document.querySelector('.display')
+  let $startButton = document.querySelector('.start')
+  let $modal = document.querySelector('.modal')
+  let $overlay = document.querySelector('.overlay')
+
 
   //bind events
+  $startButton.addEventListener('click', _displayModal)
+  $overlay.addEventListener('click', _hideModal)
+
+  function _displayModal() {
+    $modal.classList.add('active')
+    $overlay.classList.add('active')
+  }
+
+  function _hideModal() {
+    $modal.classList.remove('active')
+    $overlay.classList.remove('active')
+  }
 
   function render() {
     $spaces.forEach((element, index) => {
