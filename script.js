@@ -21,6 +21,16 @@ const gameBoard = (function() {
     return winStatus
   }
 
+  function _tieCheck() {
+    let tieStatus = true
+
+    board.forEach((element) => {
+      if (element === '_') tieStatus = false
+    })
+
+    return tieStatus
+  }
+
   function validMoveCheck(space) {
     if (space.innerHTML === '_') return true
     return false
@@ -32,6 +42,9 @@ const gameBoard = (function() {
       return "win"
     }
     //If not a win and board is full, it is a tie
+    if (_tieCheck()) {
+      return "tie"
+    }
     //otherwise, the game goes on. return false
   }
 
@@ -83,6 +96,8 @@ const game = (function() {
     let gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
     if (gameStatus === 'win') {
       activePlayer === playerOne ? console.log("Player One Wins!") : console.log("Player Two Wins!")
+    } else if (gameStatus === 'tie') {
+      console.log("Tie!")
     }
   }
 
