@@ -75,7 +75,7 @@ const players = (symbol) => {
 const game = (function() {
   let playerOne = players('X')
   let playerTwo = players('O')
-  //let gameFinished = false
+  let gameStatus
   let activePlayer
 
   //cache DOM
@@ -83,17 +83,17 @@ const game = (function() {
 
   //bind events
   $spaces.forEach((element, index) => {
-    element.addEventListener('click', function() {
-      if (gameBoard.validMoveCheck(element)) {
-        _game(index)
-      }
+    element.addEventListener('click', () => {
+      if (gameBoard.validMoveCheck(element)) _game(index)
     })
   })
-
+  
   function _game(index) {
+    if (gameStatus === 'win' || gameStatus === 'tie') return
+    
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
     activePlayer.placeSymbol(index)
-    let gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
+    gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
     if (gameStatus === 'win') {
       activePlayer === playerOne ? console.log("Player One Wins!") : console.log("Player Two Wins!")
     } else if (gameStatus === 'tie') {
