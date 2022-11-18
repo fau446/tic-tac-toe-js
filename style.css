@@ -23,8 +23,8 @@ h1 {
 
 .board {
   font-size: 6rem;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   display: grid;
   justify-self: center;
   grid-template-rows: 1fr 1fr 1fr;
@@ -42,9 +42,24 @@ ul {
 }
 
 li {
-  /* display: inline; */
   border: 1px solid green;
   cursor: pointer;
+}
+
+.top {
+  border-top: none;
+}
+
+.left {
+  border-left: none;
+}
+
+.right {
+  border-right: none;
+}
+
+.bottom {
+  border-bottom: none;
 }
 
 .modal {
