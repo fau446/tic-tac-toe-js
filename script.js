@@ -86,7 +86,7 @@ const game = (function() {
   let $resetButton = document.querySelector('.reset')
 
   //bind events
-  $resetButton.addEventListener('click', _resetGame)
+  $resetButton.addEventListener('click', resetGame)
 
   function _bindSpaces() {
     $spaces.forEach((element, index) => {
@@ -96,7 +96,7 @@ const game = (function() {
     })
   }
 
-  function _resetGame() {
+  function resetGame() {
     gameStatus = undefined
     activePlayer = playerOne
     gameBoard.resetBoard()
@@ -116,14 +116,15 @@ const game = (function() {
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
   }
 
-  function start_game() {
+  function startGame() {
     _bindSpaces()
   }
 
   return {
     playerOne,
     playerTwo,
-    start_game
+    startGame,
+    resetGame
   }
 
 })()
@@ -150,7 +151,8 @@ const displayController = (function() {
     game.playerTwo.name = $playerTwoName.value
     _resetInputFields()
     _hideModal()
-    game.start_game()
+    game.startGame()
+    game.resetGame()
   }
 
   function _resetInputFields() {
