@@ -78,11 +78,18 @@ const game = (function() {
   let $spaces = document.querySelectorAll('.space')
 
   //bind events
-  $spaces.forEach((element, index) => {
-    element.addEventListener('click', () => {
-      if (gameBoard.validMoveCheck(element)) _game(index)
+
+  function _bindSpaces() {
+    $spaces.forEach((element, index) => {
+      element.addEventListener('click', () => {
+        if (gameBoard.validMoveCheck(element)) _game(index)
+      })
     })
-  })
+  }
+
+  function start_game() {
+    _bindSpaces()
+  }
   
   function _game(index) {
     if (gameStatus === 'win' || gameStatus === 'tie') return
@@ -99,7 +106,8 @@ const game = (function() {
 
   return {
     playerOne,
-    playerTwo
+    playerTwo,
+    start_game
   }
 
 })()
@@ -126,6 +134,7 @@ const displayController = (function() {
     game.playerTwo.name = $playerTwoName.value
     _resetInputFields()
     _hideModal()
+    game.start_game()
   }
 
   function _resetInputFields() {
