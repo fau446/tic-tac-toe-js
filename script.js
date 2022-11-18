@@ -97,6 +97,10 @@ const game = (function() {
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
   }
 
+  return {
+    playerOne,
+    playerTwo
+  }
 
 })()
 
@@ -107,11 +111,21 @@ const displayController = (function() {
   let $startButton = document.querySelector('.start')
   let $modal = document.querySelector('.modal')
   let $overlay = document.querySelector('.overlay')
+  let $modalSubmitButton = document.querySelector('.submit')
+  let $playerOneName = document.querySelector('#player-one-name')
+  let $playerTwoName = document.querySelector('#player-two-name')
 
 
   //bind events
   $startButton.addEventListener('click', _displayModal)
   $overlay.addEventListener('click', _hideModal)
+  $modalSubmitButton.addEventListener('click', _submitPlayerNames)
+
+  function _submitPlayerNames() {
+    game.playerOne.name = $playerOneName.value
+    game.playerTwo.name = $playerTwoName.value
+    _hideModal()
+  }
 
   function _displayModal() {
     $modal.classList.add('active')
