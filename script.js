@@ -85,8 +85,6 @@ const game = (function() {
   let $spaces = document.querySelectorAll('.space')
   let $resetButton = document.querySelector('.reset')
 
-  //bind events
-  $resetButton.addEventListener('click', _resetGame)
 
   function _bindSpaces() {
     $spaces.forEach((element, index) => {
@@ -94,6 +92,10 @@ const game = (function() {
         if (gameBoard.validMoveCheck(element)) _game(index)
       })
     })
+  }
+
+  function _bindResetButton() {
+    $resetButton.addEventListener('click', _resetGame)
   }
 
   function _resetGame() {
@@ -122,6 +124,7 @@ const game = (function() {
 
   function startGame() {
     _bindSpaces()
+    _bindResetButton()
     _resetGame()
   }
 
