@@ -1,5 +1,5 @@
 const gameBoard = (function() {
-  let board = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
+  let board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
   function _arrayEquals(a, b) {
     return a.every((val, index) => val === b[index])
@@ -25,14 +25,14 @@ const gameBoard = (function() {
     let tieStatus = true
 
     board.forEach((element) => {
-      if (element === '_') tieStatus = false
+      if (element === ' ') tieStatus = false
     })
 
     return tieStatus
   }
 
   function validMoveCheck(space) {
-    if (space.innerHTML === '_') return true
+    if (space.innerHTML === ' ') return true
     return false
   } 
 
@@ -48,7 +48,7 @@ const gameBoard = (function() {
 
   function resetBoard() {
     board.forEach((element, index) => {
-      board[index] = '_'
+      board[index] = ' '
     })
   }
 
