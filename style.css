@@ -11,6 +11,7 @@ body {
   grid-template-columns: 1fr;
   align-items: center;
   text-align: center;
+  background: #FEFF24;
 }
 
 h1 {
@@ -19,6 +20,7 @@ h1 {
 
 .display {
   font-size: 2rem;
+  color: #FF1BB0;
 }
 
 .board {
@@ -42,7 +44,7 @@ ul {
 }
 
 li {
-  border: 1px solid green;
+  border: 2px solid green;
   cursor: pointer;
 }
 
@@ -60,6 +62,19 @@ li {
 
 .bottom {
   border-bottom: none;
+}
+
+button {
+  box-sizing: content-box;
+  background: #764B92;
+  color: white;
+  border: none;
+  width: 110px;
+  padding: 20px;
+  margin: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .modal {
