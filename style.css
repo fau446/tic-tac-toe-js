@@ -72,6 +72,15 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background: #8354a2;
+}
+
+button:active {
+  color: #764B92;
+  background: white;
+}
+
 .start, .reset, .submit {
   box-sizing: content-box;
   width: 110px;
