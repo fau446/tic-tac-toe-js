@@ -124,7 +124,13 @@ const displayController = (function() {
   function _submitPlayerNames() {
     game.playerOne.name = $playerOneName.value
     game.playerTwo.name = $playerTwoName.value
+    _resetInputFields()
     _hideModal()
+  }
+
+  function _resetInputFields() {
+    $playerOneName.value = ''
+    $playerTwoName.value = ''
   }
 
   function _displayModal() {
