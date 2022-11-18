@@ -144,6 +144,7 @@ const displayController = (function() {
   let $modal = document.querySelector('.modal')
   let $overlay = document.querySelector('.overlay')
   let $modalSubmitButton = document.querySelector('.submit')
+  let $closeModalButton = document.querySelector('.close-modal')
   let $playerOneName = document.querySelector('#player-one-name')
   let $playerTwoName = document.querySelector('#player-two-name')
 
@@ -152,6 +153,7 @@ const displayController = (function() {
   $startButton.addEventListener('click', _displayModal)
   $overlay.addEventListener('click', _hideModal)
   $modalSubmitButton.addEventListener('click', _submitPlayerNames)
+  $closeModalButton.addEventListener('click', _hideModal)
 
   function _submitPlayerNames() {
     game.playerOne.name = $playerOneName.value
