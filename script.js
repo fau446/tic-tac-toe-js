@@ -86,7 +86,7 @@ const game = (function() {
   let $resetButton = document.querySelector('.reset')
 
   //bind events
-  $resetButton.addEventListener('click', resetGame)
+  $resetButton.addEventListener('click', _resetGame)
 
   function _bindSpaces() {
     $spaces.forEach((element, index) => {
@@ -96,10 +96,11 @@ const game = (function() {
     })
   }
 
-  function resetGame() {
+  function _resetGame() {
     gameStatus = undefined
     activePlayer = playerOne
     gameBoard.resetBoard()
+    displayController.displayTurn(activePlayer)
     displayController.render() 
   }
   
@@ -110,21 +111,24 @@ const game = (function() {
     gameStatus = gameBoard.gameStatusCheck(activePlayer.symbol)
     if (gameStatus === 'win') {
       displayController.displayResults(gameStatus, activePlayer)
+      return
     } else if (gameStatus === 'tie') {
       displayController.displayResults(gameStatus)
+      return
     }
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
+    displayController.displayTurn(activePlayer)
   }
 
   function startGame() {
     _bindSpaces()
+    _resetGame()
   }
 
   return {
     playerOne,
     playerTwo,
-    startGame,
-    resetGame
+    startGame
   }
 
 })()
@@ -152,7 +156,6 @@ const displayController = (function() {
     _resetInputFields()
     _hideModal()
     game.startGame()
-    game.resetGame()
   }
 
   function _resetInputFields() {
@@ -170,6 +173,10 @@ const displayController = (function() {
     $overlay.classList.remove('active')
   }
 
+  function displayTurn(activePlayer) {
+    $display.innerHTML = `${activePlayer.name} (${activePlayer.symbol}), it's your turn!`
+  }
+
   function render() {
     $spaces.forEach((element, index) => {
       element.innerHTML = gameBoard.board[index]
@@ -183,9 +190,9 @@ const displayController = (function() {
     } 
 
     if (activePlayer.symbol === 'X') {
-      $display.innerHTML = "Player One Wins!"
+      $display.innerHTML = `${game.playerOne.name} wins!`
     } else {
-      $display.innerHTML = "Player Two Wins!"
+      $display.innerHTML = `${game.playerTwo.name} wins!`
     }
   }
 
@@ -193,6 +200,7 @@ const displayController = (function() {
 
   return {
     render,
-    displayResults
+    displayResults,
+    displayTurn
   }
 })()
