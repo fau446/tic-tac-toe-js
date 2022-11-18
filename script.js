@@ -46,10 +46,17 @@ const gameBoard = (function() {
     }
   }
 
+  function resetBoard() {
+    board.forEach((element, index) => {
+      board[index] = '_'
+    })
+  }
+
   return {
     board,
     validMoveCheck,
-    gameStatusCheck
+    gameStatusCheck,
+    resetBoard
   }
 })()
 
@@ -76,8 +83,10 @@ const game = (function() {
 
   //cache DOM
   let $spaces = document.querySelectorAll('.space')
+  let $resetButton = document.querySelector('.reset')
 
   //bind events
+  $resetButton.addEventListener('click', _resetGame)
 
   function _bindSpaces() {
     $spaces.forEach((element, index) => {
@@ -87,8 +96,11 @@ const game = (function() {
     })
   }
 
-  function start_game() {
-    _bindSpaces()
+  function _resetGame() {
+    gameStatus = undefined
+    activePlayer = playerOne
+    gameBoard.resetBoard()
+    displayController.render() 
   }
   
   function _game(index) {
@@ -102,6 +114,10 @@ const game = (function() {
       displayController.displayResults(gameStatus)
     }
     activePlayer != playerOne ? activePlayer = playerOne : activePlayer = playerTwo
+  }
+
+  function start_game() {
+    _bindSpaces()
   }
 
   return {
